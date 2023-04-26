@@ -1,9 +1,9 @@
 const getUrls = () => {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = () => {
-        if (xmlhttp.readyState == xmlhttp.DONE) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState == xhr.DONE) {
             var table = document.querySelector("#urlTable");
-            var rows = JSON.parse(xmlhttp.response);
+            var rows = JSON.parse(xhr.response);
             rows.forEach((row) => {
                 var tr = document.createElement("tr");
 
@@ -33,6 +33,24 @@ const getUrls = () => {
             });
         }
     };
-    xmlhttp.open("GET", "server/getUrls.php");
-    xmlhttp.send();
+    xhr.open("GET", "server/getUrls.php");
+    xhr.send();
+}
+
+const getCategories = () => {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState == xhr.DONE) {
+            var select = document.querySelector("#categoryInput");
+            var rows = JSON.parse(xhr.response);
+            rows.forEach((row) => {
+                var option = document.createElement("option");
+                option.innerHTML = row["name"];
+                option.setAttribute("value", row["id"].toString());
+                select.appendChild(option);
+            });
+        }
+    };
+    xhr.open("GET", "server/getCategories.php");
+    xhr.send();
 }
