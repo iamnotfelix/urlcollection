@@ -1,3 +1,6 @@
+
+// Urls
+
 const getUrls = () => {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
@@ -36,6 +39,30 @@ const getUrls = () => {
     xhr.open("GET", "server/getUrls.php");
     xhr.send();
 }
+
+const getUrlById = () => {
+    var path = new URL(this.location.href);
+    const id = path.searchParams.get("id");
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState == xhr.DONE) {
+            var row = JSON.parse(xhr.response)[0];
+            
+            var url = document.querySelector("#urlInput");
+            var description = document.querySelector("#descriptionInput");
+            var id = document.querySelector("#idInput");
+
+            url.setAttribute('value', row["url"]);
+            description.setAttribute('value', row["description"]);
+            id.setAttribute('value', row["id"]);
+        }
+    };
+    xhr.open("GET", `server/getUrlById.php?id=${id}`);
+    xhr.send();
+}
+
+// Categories
 
 const getCategories = () => {
     var xhr = new XMLHttpRequest();
