@@ -23,7 +23,7 @@ const getUrls = () => {
                 
                 var deleteBtn = document.createElement("a");
                 deleteBtn.setAttribute("href", `/urlcollection/delete.php?id=${row['id']}`);
-                deleteBtn.classList.add("btn", "btn-primary", "btn-sm", "me-1");
+                deleteBtn.classList.add("btn", "btn-danger", "btn-sm", "me-1");
                 deleteBtn.innerText = "Delete";
 
                 var buttonCell = document.createElement("td");
@@ -59,6 +59,21 @@ const getUrlById = () => {
         }
     };
     xhr.open("GET", `server/getUrlById.php?id=${id}`);
+    xhr.send();
+}
+
+const deleteUrl = () => {
+    var path = new URL(this.location.href);
+    const id = path.searchParams.get("id");
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState == xhr.DONE) {
+            console.log(xhr.response);
+            window.location.href = "./main.php";
+        }
+    };
+    xhr.open("DELETE", `server/deleteUrl.php?id=${id}`);
     xhr.send();
 }
 
