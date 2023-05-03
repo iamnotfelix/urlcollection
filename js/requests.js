@@ -100,3 +100,17 @@ export const getCategories = (callback) => {
     xhr.open("GET", "server/getCategories.php");
     xhr.send();
 }
+
+// Users
+
+export const login = (content, callback) => {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState == xhr.DONE) {
+            callback(xhr.response);
+        }
+    };
+    xhr.open("POST", "server/login.php");
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.send(JSON.stringify(content));
+}
