@@ -23,7 +23,9 @@ create table URLs
     id int primary key auto_increment,
     url longtext not null,
     description longtext not null,
-    category int
+    category int, 
+    user int
 );
 
-alter table URLs add foreign key (category) references URLs(id);
+alter table URLs add foreign key (category) references Categories(id);
+alter table URLs add foreign key (user) references Users(id);
