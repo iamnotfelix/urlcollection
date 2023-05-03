@@ -1,3 +1,6 @@
+<?php
+        session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +11,12 @@
     <title>Add URL</title>
 </head>
 <body>
+    <?php
+        if (!isset($_SESSION['userId'])) {
+            echo "<div class='alert alert-warning m-5' role='alert'>You need to <a href='login.php' class='alert-link'>log in</a>.</div>";
+            exit;
+        }   
+    ?>
     <form id="addForm" autocomplete="off">
     <!-- method="POST" action="./server/addUrl.php" -->
         <div class="container my-5">

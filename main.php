@@ -1,3 +1,6 @@
+<?php
+        session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +11,12 @@
     <title>Url Collection</title>
 </head>
 <body> 
+    <?php
+        if (!isset($_SESSION['userId'])) {
+            echo "<div class='alert alert-warning m-5' role='alert'>You need to <a href='login.php' class='alert-link'>log in</a>.</div>";
+            exit;
+        }   
+    ?>
     <div class="container my-5">
         <div class="d-flex justify-content-between align-items-center m-0 p-0">
             <div class="d-flex gap-1 align-items-center">
