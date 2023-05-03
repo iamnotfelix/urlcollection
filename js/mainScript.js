@@ -53,7 +53,6 @@ const populateNavigator = (number) => {
 
         var anchor = document.createElement("a");
         anchor.classList.add("page-link", "btn", "pages");
-        // anchor.setAttribute("href", `main.php?page=${i}`);
         anchor.text = i.toString();
 
         li.appendChild(anchor);
@@ -64,23 +63,29 @@ const populateNavigator = (number) => {
 const populateComponents = () => {
     getUrls(1, populateTable);
     getCategories(populateSelect);
-    getUrlPages(populateNavigator);
+    getUrlPages(-1, populateNavigator);
 }
 
 const changeView = (event) => {
     const categoryId = event.target.value;
     if (categoryId == 0) {
-        getUrls(populateTable);
+        getUrls(1, populateTable);
+        getUrlPages(-1, populateNavigator);
     } else {
-        getUrlsByCategory(categoryId, populateTable);
+        getUrlsByCategory(categoryId, 1, populateTable);
+        getUrlPages(categoryId, populateNavigator);
     }
 }
 
 const changePage = (event) => {
+    var value = document.querySelector("#categoryFilter").value;
     if (event.target.tagName == "A") {
         const page = event.target.innerHTML;
-        console.log(page);
-        getUrls(page, populateTable);
+        if (value == 0) {
+            getUrls(page, populateTable);
+        } else {
+            getUrlsByCategory(value, page, populateTable);
+        } 
     }
 }
 

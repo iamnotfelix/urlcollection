@@ -23,25 +23,33 @@ export const getUrlById = (urlId, callback) => {
     xhr.send();
 }
 
-export const getUrlsByCategory = (categoryId, callback) => {
+export const getUrlsByCategory = (categoryId, page, callback) => {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
         if (xhr.readyState == xhr.DONE) {
             callback(JSON.parse(xhr.response));
         }
     };
-    xhr.open("GET", `server/getUrlsByCategory.php?categoryId=${categoryId}`);
+    xhr.open("GET", `server/getUrlsByCategory.php?categoryId=${categoryId}&page=${page}`);
     xhr.send();
 }
 
-export const getUrlPages = (callback) => {
+export const getUrlPages = (category, callback) => {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
         if (xhr.readyState == xhr.DONE) {
             callback(JSON.parse(xhr.response));
         }
     };
-    xhr.open("GET", `server/getUrlPages.php`);
+
+    var path;
+    if (category >= 0) {
+        path = `server/getUrlPages.php?category=${category}`;
+    } else {
+        path = `server/getUrlPages.php`;
+    }
+
+    xhr.open("GET", path);
     xhr.send();
 }
 
