@@ -26,9 +26,11 @@
                 <th>Category</th>
                 <th>Actions</th>
             </thead>
-            <tbody id="urlTable">
-            </tbody>
+            <tbody id="urlTable"></tbody>
         </table>
+        <nav class="d-flex justify-content-center">
+            <ul class="pagination pagination" id="navigator"></ul>
+        </nav>
     </div>
     <script type="module" src="./js/mainScript.js"></script>
 </body>

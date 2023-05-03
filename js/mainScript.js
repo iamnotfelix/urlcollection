@@ -1,4 +1,4 @@
-import { getUrls, getCategories, getUrlsByCategory } from './requests.js';
+import { getUrls, getCategories, getUrlsByCategory, getUrlPages} from './requests.js';
 
 const populateTable = (rows) => {
     var table = document.querySelector("#urlTable");
@@ -43,10 +43,28 @@ const populateSelect = (rows) => {
     });
 }
 
+const populateNavigator = (number) => {
+    var navigator = document.querySelector("#navigator");
+    navigator.innerHTML = '';
+
+    for (let i = 1; i <= number; ++i) {
+        var li = document.createElement('li');
+        li.classList.add("page-item");
+
+        var anchor = document.createElement("a");
+        anchor.classList.add("page-link", "btn", "pages");
+        // anchor.setAttribute("href", `main.php?page=${i}`);
+        anchor.text = i.toString();
+
+        li.appendChild(anchor);
+        navigator.appendChild(li);
+    }
+}
 
 const populateComponents = () => {
-    getUrls(populateTable);
+    getUrls(1, populateTable);
     getCategories(populateSelect);
+    getUrlPages(populateNavigator);
 }
 
 const changeView = (event) => {
@@ -58,5 +76,14 @@ const changeView = (event) => {
     }
 }
 
+const changePage = (event) => {
+    if (event.target.tagName == "A") {
+        const page = event.target.innerHTML;
+        console.log(page);
+        getUrls(page, populateTable);
+    }
+}
+
 document.addEventListener("DOMContentLoaded", populateComponents);
 document.querySelector("#categoryFilter").addEventListener("change", changeView);
+document.querySelector("#navigator").addEventListener("click", changePage);
