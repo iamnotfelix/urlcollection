@@ -46,7 +46,6 @@ const submitForm = (event) => {
         }
         addUrl(content, redirectToMain);
     } else {
-        console.log("asdf")
         event.target.reset();
     }
 }

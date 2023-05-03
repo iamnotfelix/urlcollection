@@ -65,6 +65,18 @@ export const addUrl = (content, callback) => {
     xhr.send(JSON.stringify(content));
 }
 
+export const updateUrl = (content, callback) => {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState == xhr.DONE) {
+            callback(JSON.parse(xhr.response));
+        }
+    };
+    xhr.open("PUT", `server/updateUrl.php`);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.send(JSON.stringify(content));
+}
+
 export const deleteUrl = (urlId, callback) => {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {

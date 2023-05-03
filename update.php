@@ -8,7 +8,8 @@
     <title>Update URL</title>
 </head>
 <body>
-    <form method="POST" action="./server/updateUrl.php" autocomplete="off">
+    <form id="updateForm" autocomplete="off">
+        <!-- method="POST" action="./server/updateUrl.php" -->
         <div class="container my-5">
             <h2>Update URL</h2>
             <div class="form-group mb-4">
