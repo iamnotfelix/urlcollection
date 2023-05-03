@@ -53,6 +53,18 @@ export const getUrlPages = (category, callback) => {
     xhr.send();
 }
 
+export const addUrl = (content, callback) => {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState == xhr.DONE) {
+            callback(JSON.parse(xhr.response));
+        }
+    };
+    xhr.open("POST", `server/addUrl.php`);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.send(JSON.stringify(content));
+}
+
 export const deleteUrl = (urlId, callback) => {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {

@@ -8,7 +8,8 @@
     <title>Add URL</title>
 </head>
 <body>
-    <form method="POST" action="./server/addUrl.php" autocomplete="off">
+    <form id="addForm" autocomplete="off">
+    <!-- method="POST" action="./server/addUrl.php" -->
         <div class="container my-5">
             <h2>Add URL</h2>
             <div class="form-group mb-4">
