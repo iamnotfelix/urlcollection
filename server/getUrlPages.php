@@ -4,12 +4,15 @@
     
     if (isset ($_GET['category']) ) {  
         $category = $_GET['category'];
-        $sql = "select * from urls where category=$category and user=$userId;";
+        $sql = $connection->prepare("select * from urls where category=? and user=?");
+        $sql->bind_param("ii", $category, $userId);
     } else {
         $sql = "select * from urls where user=$userId;";
+        $sql = $connection->prepare("select * from urls where user=?");
+        $sql->bind_param("i", $userId);
     }
-
-    $result = $connection->query($sql);
+    $sql->execute();
+    $result = $sql->get_result();
 
     $pageSize = 4;
     $number = mysqli_num_rows($result);

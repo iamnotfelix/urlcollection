@@ -4,11 +4,14 @@
 
     $pageSize = 4;
 
-    $sql = "select * from urls where user=$userId;";
-    $result = $connection->query($sql);
+    $sql = $connection->prepare("select * from urls where user = ?");
+    $sql->bind_param("i", $userId);
+    $sql->execute();
+    $result = $sql->get_result();
 
     $number = mysqli_num_rows($result);
-    $pages = ceil ($number / $pageSize);  
+    $pages = ceil ($number / $pageSize); 
+    $sql->close(); 
 
     $page = 1;
     if (isset ($_GET['page']) ) {  
@@ -20,13 +23,16 @@
 
     $from = ($page-1) * $pageSize;  
     
-    $sql = "select * from urls where user=$userId limit $from, $pageSize"; 
-    $result = $connection->query($sql);
+    $sql = $connection->prepare("select * from urls where user=? limit ?, ?"); 
+    $sql->bind_param("iii", $userId, $from, $pageSize);
+    $sql->execute();
+    $result = $sql->get_result();
     
     $jsonResult = array();
     while ($row = $result->fetch_assoc()) {
         $jsonResult[] = $row;
     }
+    $sql->close(); 
 
     echo json_encode($jsonResult);
 ?>

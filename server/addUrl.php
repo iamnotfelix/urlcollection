@@ -7,14 +7,11 @@
         $url = $data['url'];
         $description = $data['description'];
         $category = $data['category'];
+
+        $sql = $connection->prepare("insert into urls (url, description, category, user) values (?, ?, ?, ?)");
+        $sql->bind_param("ssii", $url, $description, $category, $userId);
+        $sql->execute();
         
-        $querry = "insert into urls (url, description, category, user) values ('$url', '$description', $category, $userId);";
-        $result = $connection->query($querry);
-        
-        if (!$result) {
-            echo "Somethig went wrong.";
-            header("Location: ../errorPage.php");
-        }
         header('Content-Type: application/json');
         echo json_encode(array('status' => 'success'));
     }

@@ -4,13 +4,8 @@
     $id = $_GET['id'];
 
     if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-        $querry = "delete from urls where id=$id;";
-        $result = $connection->query($querry);
-
-        if (!$result) {
-            echo "Somethig went wrong.";
-            header("Location: ../errorPage.php");
-        }
-        header("Location: ../main.php");
+        $sql = $connection->prepare("delete from urls where id=?");
+        $sql->bind_param("i", $id);
+        $sql->execute();
     }
 ?>
