@@ -1,11 +1,12 @@
 <?php
     include "connection.php";
+    include "session.php";
 
     $categoryId = $_GET["categoryId"];
 
     $pageSize = 4;
 
-    $sql = "select * from urls where category=$categoryId";
+    $sql = "select * from urls where category=$categoryId and user=$userId;";
     $result = $connection->query($sql);
 
     $number = mysqli_num_rows($result);
@@ -21,7 +22,7 @@
 
     $from = ($page-1) * $pageSize;
     
-    $sql = "select * from urls where category=$categoryId LIMIT $from, $pageSize";
+    $sql = "select * from urls where category=$categoryId and user=$userId limit $from, $pageSize";
     $result = $connection->query($sql);
     
     $jsonResult = array();

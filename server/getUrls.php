@@ -1,9 +1,10 @@
 <?php
     include "connection.php";
+    include "session.php";
 
     $pageSize = 4;
 
-    $sql = "select * from urls";
+    $sql = "select * from urls where user=$userId;";
     $result = $connection->query($sql);
 
     $number = mysqli_num_rows($result);
@@ -19,12 +20,11 @@
 
     $from = ($page-1) * $pageSize;  
     
-    $sql = "select * from urls LIMIT $from, $pageSize"; 
+    $sql = "select * from urls where user=$userId limit $from, $pageSize"; 
     $result = $connection->query($sql);
     
     $jsonResult = array();
     while ($row = $result->fetch_assoc()) {
-        // echo json_encode($row), '<br/>';
         $jsonResult[] = $row;
     }
 

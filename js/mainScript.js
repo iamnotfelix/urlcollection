@@ -8,9 +8,11 @@ const populateTable = (rows) => {
         var tr = document.createElement("tr");
 
         for (let key in row) {
-            var td = document.createElement("td");
-            td.innerText = row[key].toString();
-            tr.appendChild(td);
+            if (key != "user") {
+                var td = document.createElement("td");
+                td.innerText = row[key].toString();
+                tr.appendChild(td);
+            }
         }
 
         var updateBtn = document.createElement("a");

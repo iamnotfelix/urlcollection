@@ -1,5 +1,6 @@
 <?php
     include "connection.php";
+    include "session.php";
     
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = json_decode(file_get_contents("php://input"), true);
@@ -7,7 +8,7 @@
         $description = $data['description'];
         $category = $data['category'];
         
-        $querry = "insert into urls (url, description, category) values ('$url', '$description', $category);";
+        $querry = "insert into urls (url, description, category, user) values ('$url', '$description', $category, $userId);";
         $result = $connection->query($querry);
         
         if (!$result) {
