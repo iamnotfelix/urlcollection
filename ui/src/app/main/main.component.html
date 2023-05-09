@@ -1,0 +1,24 @@
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center m-0 p-0">
+        <div class="d-flex gap-1 align-items-center">
+            <h2 style="width: 400px;">List of URLs</h2>
+            <select class="form-control" name="category" id="categoryFilter">
+                <option value="0">All</option>
+            </select>
+        </div>
+        <a class="btn btn-primary " role="button" href="add.php">Add URL</a>
+    </div>
+    <table class="table">
+        <thead>
+            <th>Id</th>
+            <th>URL</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </thead>
+        <tbody id="urlTable"></tbody>
+    </table>
+    <nav class="d-flex justify-content-center">
+        <ul class="pagination pagination" id="navigator"></ul>
+    </nav>
+</div>
