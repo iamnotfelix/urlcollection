@@ -1,4 +1,5 @@
 <?php
+    include "cors.php";
     include "connection.php";
 
     $sql = "select * from categories";

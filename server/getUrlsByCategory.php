@@ -1,6 +1,7 @@
 <?php
+    include "cors.php";
     include "connection.php";
-    include "session.php";
+    $userId = 1;
 
     $categoryId = $_GET["categoryId"];
 
@@ -12,14 +13,14 @@
     $result = $sql->get_result();
 
     $number = mysqli_num_rows($result);
-    $pages = ceil ($number / $pageSize);  
+    $totalPages = ceil ($number / $pageSize);  
     $sql->close();
 
     $page = 1;
     if (isset ($_GET['page']) ) {  
         $page = $_GET['page'];
     }
-    if ($page < 1 || $page > $pages) {
+    if ($page < 1 || $page > $totalPages) {
         $page = 1;
     }
 
@@ -39,5 +40,5 @@
     }
     $sql->close();
 
-    echo json_encode($jsonResult);
+    echo json_encode(array('totalPages' => $totalPages, 'urls' => $jsonResult));
 ?>
