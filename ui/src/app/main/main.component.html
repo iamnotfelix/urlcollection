@@ -2,11 +2,12 @@
     <div class="d-flex justify-content-between align-items-center m-0 p-0">
         <div class="d-flex gap-1 align-items-center">
             <h2 style="width: 400px;">List of URLs</h2>
-            <select class="form-control" name="category" id="categoryFilter">
-                <option value="0">All</option>
+            <select class="form-control" name="category" id="categoryFilter" [(ngModel)]="category" (change)="changeView()">
+                <option value="0" selected="selected">All</option>
+                <option *ngFor="let c of categories" [value]="c.id">{{c.name}}</option>
             </select>
         </div>
-        <a class="btn btn-primary " role="button" href="add.php">Add URL</a>
+        <a class="btn btn-primary " role="button" routerLink="/add" routerLinkActive="active" ariaCurrentWhenActive="page">Add URL</a>
     </div>
     <table class="table">
         <thead>
@@ -16,9 +17,28 @@
             <th>Category</th>
             <th>Actions</th>
         </thead>
-        <tbody id="urlTable"></tbody>
+        <tbody id="urlTable">
+            <tr *ngFor="let url of urls">
+                <td>{{url.id}}</td>
+                <td>{{url.url}}</td>
+                <td>{{url.description}}</td>
+                <td>{{url.category}}</td>
+                <td>
+                    <a  class="btn btn-primary btn-sm me-1" 
+                        [routerLink]="['/update', url.id]"
+                        routerLinkActive="active" 
+                        ariaCurrentWhenActive="page">Update</a>
+                    <a  class="btn btn-danger btn-sm me-1" 
+                        [routerLink]="['/delete', url.id]"
+                        routerLinkActive="active" 
+                        ariaCurrentWhenActive="page">Delete</a>
+                </td>
+              </tr>
+        </tbody>
     </table>
     <nav class="d-flex justify-content-center">
-        <ul class="pagination pagination" id="navigator"></ul>
+        <ul class="pagination" id="navigator" *ngFor="let index of pages">
+            <li class="page-item"><a class="page-link btn pages" (click)="changePage(index)">{{index}}</a></li>
+        </ul>
     </nav>
 </div>

@@ -1,0 +1,14 @@
+<form id="updateForm" autocomplete="off" (submit)="updateUrl()">
+    <div class="container my-5">
+        <h2>Update URL</h2>
+        <div class="form-group mb-4">
+            <label for="urlInput">URL</label>
+            <input type="url" required name="url" class="form-control" id="urlInput" placeholder="Enter URL"[(ngModel)]="url">
+        </div>
+        <div class="form-group mb-4">
+            <label for="descriptionInput">Description</label>
+            <input type="text" required name="description" class="form-control" id="descriptionInput" placeholder="Write a description" [(ngModel)]="description">
+        </div>
+        <button class="btn btn-primary">Update</button>
+    </div>
+</form>
