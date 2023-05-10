@@ -1,7 +1,12 @@
 <?php
     include "cors.php";
     include "connection.php";
-    $userId = 1; //////////////////////////////////////////////////
+    
+    $userId = 0;
+    if (isset($_GET['userId']))
+    {
+        $userId = $_GET['userId'];
+    }
     
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = json_decode(file_get_contents("php://input"), true);

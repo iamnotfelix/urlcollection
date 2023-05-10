@@ -26,7 +26,7 @@ export class LoginComponent {
       }
 
       this.authService.login(loginUser).subscribe(data => {
-        localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('user', data.id.toString());
         this.router.navigateByUrl("/");
       }, (err) => {
         console.log(err.error);

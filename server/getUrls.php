@@ -1,7 +1,12 @@
 <?php
     include "connection.php";
     include "cors.php";
-    $userId = 1; //////////////////////////////////////////////////////////////
+    
+    $userId = 0;
+    if (isset($_GET['userId']))
+    {
+        $userId = $_GET['userId'];
+    }
 
     $pageSize = 4;
 

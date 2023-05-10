@@ -25,4 +25,8 @@ export class AuthService {
   isLoggedIn() {
     return localStorage.getItem('user');
   }
+
+  getUser(): Observable<number> {
+    return parseInt(localStorage.getItem("user")!) as unknown as Observable<number>
+  }
 }

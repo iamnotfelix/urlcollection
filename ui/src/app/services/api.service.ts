@@ -6,17 +6,18 @@ import { Category } from 'src/models/Category';
 import { PagedResponse } from 'src/models/PagedResponse';
 import { UpdateUrlDto } from 'src/models/UpdateUrlDto';
 import { Url } from 'src/models/Url';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   baseUrl = 'http://localhost:8000/urlcollection/server';
-  
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   getUrls(page: number): Observable<PagedResponse> {
-    return this.http.get(`${this.baseUrl}/getUrls.php?page=${page}`) as Observable<PagedResponse>;
+    return this.http.get(`${this.baseUrl}/getUrls.php?userId=${this.authService.getUser()}&page=${page}`) as Observable<PagedResponse>;
   }
 
   getUrl(urlId: number): Observable<Url> {
@@ -24,7 +25,7 @@ export class ApiService {
   }
 
   getUrlsByCategory(page: number, categoryId: number): Observable<PagedResponse> {
-    return this.http.get(`${this.baseUrl}/getUrlsByCategory.php?categoryId=${categoryId}&page=${page}`) as Observable<PagedResponse>;
+    return this.http.get(`${this.baseUrl}/getUrlsByCategory.php?userId=${this.authService.getUser()}&categoryId=${categoryId}&page=${page}`) as Observable<PagedResponse>;
   }
   
   getCategories(): Observable<Category[]> {
@@ -32,7 +33,7 @@ export class ApiService {
   }
 
   addUrl(url: AddUrlDto): Observable<AddUrlDto> {
-    return this.http.post(`${this.baseUrl}/addUrl.php`, url) as Observable<AddUrlDto>;
+    return this.http.post(`${this.baseUrl}/addUrl.php?userId=${this.authService.getUser()}`, url) as Observable<AddUrlDto>;
   }
 
   updateUrl(url: UpdateUrlDto): Observable<UpdateUrlDto> {
