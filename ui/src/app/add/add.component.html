@@ -1,5 +1,8 @@
 <form id="addForm" autocomplete="off" (submit)="addUrl()">
     <div class="container my-5">
+        <div *ngIf="error" class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
         <h2>Add URL</h2>
         <div class="form-group mb-4">
             <label for="urlInput">URL</label>

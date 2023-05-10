@@ -1,5 +1,8 @@
 <form id="updateForm" autocomplete="off" (submit)="updateUrl()">
     <div class="container my-5">
+        <div *ngIf="error" class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
         <h2>Update URL</h2>
         <div class="form-group mb-4">
             <label for="urlInput">URL</label>

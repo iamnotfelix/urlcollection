@@ -17,12 +17,15 @@ export class AddComponent implements OnInit{
 	constructor(private apiService: ApiService, private router: Router) {}
 
 	categories?: Category[];
+	error?: string | null;
 
 	ngOnInit(): void {
 		this.apiService.getCategories().subscribe(data => this.categories = data);
 	}
 
 	addUrl() {
+		this.error = null;
+
 		if (this.url && this.description && this.category)
 		{
 			const url: AddUrlDto = {
@@ -34,7 +37,8 @@ export class AddComponent implements OnInit{
 			this.apiService.addUrl(url).subscribe((response: any) => {
 				this.router.navigateByUrl('/');
 			}, (err) => {
-				console.log(err);
+				console.log(err.error);
+        		this.error = err.error;
 			})	
 		}
 	}

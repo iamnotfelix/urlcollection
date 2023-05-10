@@ -18,6 +18,7 @@ export class UpdateComponent implements OnInit{
   constructor (private apiService: ApiService, private router: Router, private activatedRoute: ActivatedRoute) {};
 
   oldUrl?: Url;
+  error?: string | null;
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params: any) => {
@@ -32,6 +33,8 @@ export class UpdateComponent implements OnInit{
   }
 
   updateUrl() {
+    this.error = null;
+
     if (this.id && this.url && this.description)
 		{
 			const url: UpdateUrlDto = {
@@ -44,6 +47,7 @@ export class UpdateComponent implements OnInit{
 				this.router.navigateByUrl('/');
 			}, (err) => {
 				console.log(err);
+        this.error = err.error;
 			})
 				
 		}

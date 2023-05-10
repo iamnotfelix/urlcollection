@@ -14,17 +14,19 @@
         $description = $data['description'];
         $category = $data['category'];
 
-        // $pattern = '/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w.-]*)*\/?$/';
-        // if (!preg_match($pattern, $url)) {
-        //     echo json_encode(array('status' => 'error pattern'));
-        //     exit;
-        // }
+        $pattern = '/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w.-]*)*\/?$/';
+        if (!preg_match($pattern, $url)) {
+            http_response_code(400);
+            echo json_encode('URL is invalid.');
+            exit;
+        }
 
-        // if (strlen($url) == 0 || strlen($description) == 0)
-        // {
-        //     echo json_encode(array('status' => 'error length'));
-        //     exit;
-        // }
+        if (strlen($url) == 0 || strlen($description) == 0)
+        {
+            http_response_code(400);
+            echo json_encode("All fields are required.");
+            exit;
+        }
 
         $sql = $connection->prepare("insert into urls (url, description, category, user) values (?, ?, ?, ?)");
         $sql->bind_param("ssii", $url, $description, $category, $userId);
