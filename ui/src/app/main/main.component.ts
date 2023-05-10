@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { Url } from 'src/models/Url';
 import { Category } from 'src/models/Category';
+import { AuthService } from '../services/auth.service';
 
 @Component({
 	selector: 'app-main',
@@ -17,7 +18,7 @@ export class MainComponent implements OnInit {
 
 	category?: number;
 
-	constructor(private apiService: ApiService) {}
+	constructor(private apiService: ApiService, private authService: AuthService) {}
 	
 	categories?: Category[];
 
@@ -56,5 +57,9 @@ export class MainComponent implements OnInit {
 			this.totalPages = data.totalPages; 
 			this.pages = Array(this.totalPages).fill(0).map((_, i) => i + 1);
 		});
+	}
+
+	logout() {
+		this.authService.logout();
 	}
 }

@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { UpdateComponent } from './update/update.component';
 import { DeleteComponent } from './delete/delete.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
     MainComponent,
     AddComponent,
     UpdateComponent,
-    DeleteComponent
+    DeleteComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
