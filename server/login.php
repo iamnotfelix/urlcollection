@@ -1,4 +1,5 @@
 <?php
+    include "cors.php";
     include "connection.php";
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -12,23 +13,18 @@
         $result = $sql->get_result();
         
         if (mysqli_num_rows($result) == 0) {
-            header('Content-Type: application/json');
-            echo "error";
+            http_response_code(400);
+            die('User or password is invalid.');
             exit;
         } else {
             $data = $result->fetch_assoc();
             if ($data["password"] != $password) {
-                header('Content-Type: application/json');
-                echo "error";
+                http_response_code(400);
+                die('User or password is invalid.');
                 exit;
-            } else {
-                session_start();
-                session_regenerate_id();
-                $_SESSION['userId'] = $data["id"];
-            }
+            } 
+            echo json_encode($data);
         }
-        $slq->close();
-        header('Content-Type: application/json');
-        echo json_encode("$username");
+        $sql->close();
     }
 ?>
