@@ -13,11 +13,12 @@ import { AuthService } from './auth.service';
 })
 export class ApiService {
   baseUrl = 'http://localhost:8000/urlcollection/server';
+  pageSize = 4;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   getUrls(page: number): Observable<PagedResponse> {
-    return this.http.get(`${this.baseUrl}/getUrls.php?userId=${this.authService.getUser()}&page=${page}`) as Observable<PagedResponse>;
+    return this.http.get(`${this.baseUrl}/getUrls.php?userId=${this.authService.getUser()}&page=${page}&pageSize=${this.pageSize}`) as Observable<PagedResponse>;
   }
 
   getUrl(urlId: number): Observable<Url> {

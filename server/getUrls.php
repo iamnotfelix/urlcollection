@@ -9,6 +9,10 @@
     }
 
     $pageSize = 4;
+    if (isset($_GET['pageSize']))
+    {
+        $pageSize = $_GET['pageSize'];
+    }
 
     $sql = $connection->prepare("select * from urls where user = ?");
     $sql->bind_param("i", $userId);
