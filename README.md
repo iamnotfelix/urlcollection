@@ -12,4 +12,5 @@ This version of the app has the backend written in PHP and a basic frontend whic
 
 ### Running
 
-Using the PHP built in server, run the command "php -S localhost:8080" outside the project folder (the folder where the "urlcollection" folder is). The main page is located at "http://localhost:8080/urlcollection/main.php". The project needs a database which can be created using the provided SQL scripts.
+Using the PHP built in server, run the command "php -S localhost:8080" outside the project folder (the folder where the "urlcollection" folder is). The main page is located at "http://localhost:8080/urlcollection/main.php". 
+The project needs a MySql database which can be created using the provided SQL scripts.
