@@ -16,4 +16,4 @@ To start the API run the command "php -S localhost:8000" outside the project fol
 
 To start the UI install necessary packages with "npm install" and run  "npm start" or "ng serve".
 
-The project needs a database which can be created using the provided SQL scripts.
+The project needs a MySql database which can be created using the provided SQL scripts.
