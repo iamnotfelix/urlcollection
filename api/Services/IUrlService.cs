@@ -9,5 +9,6 @@ namespace api.Services
         Task<Url> GetUrlById(int urlId);
         Task AddUrl(AddUrlDto url, int userId);
         Task UpdateUrl(UpdateUrlDto url);
+        Task DeleteUrl(int urlId);
     }
 }

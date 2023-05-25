@@ -76,5 +76,20 @@ namespace api.Controllers
                 return NotFound(e.Message);
             }
         }
+        
+        // DELETE /urls?urlId=:urlId
+        [HttpDelete]
+        public async Task<ActionResult> DeleteUrlAsync([FromQuery] int urlId) 
+        {
+            try
+            {
+                await this.service.DeleteUrl(urlId);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+        }
     }
 }

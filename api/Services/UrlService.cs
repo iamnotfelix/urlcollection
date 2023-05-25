@@ -36,5 +36,10 @@ namespace api.Services
 
             await this.repository.UpdateUrl(url.Id, url.URL, url.Description);
         }
+
+        public async Task DeleteUrl(int urlId)
+        {
+            await this.repository.DeleteUrl(urlId);
+        }
     }
 }

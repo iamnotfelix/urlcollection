@@ -8,5 +8,6 @@ namespace api.Repositories
         Task<Url> GetUrlById(int urlId);
         Task AddUrl(string URL, string description, int category, int userId);
         Task UpdateUrl(int id, string URL, string description);
+        Task DeleteUrl(int urlId);
     }
 }

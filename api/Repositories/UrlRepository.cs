@@ -116,5 +116,20 @@ namespace api.Repositories
 
             this.connection.Close();
         }
+
+        public async Task DeleteUrl(int urlId)
+        {
+            await this.connection.OpenAsync();
+
+            using (var command = this.connection.CreateCommand())
+            {
+                command.CommandText = @"delete from urls where id = @Id;";
+                command.Parameters.AddWithValue("@Id", urlId);
+
+                await command.ExecuteNonQueryAsync();
+            }
+
+            this.connection.Close();
+        }
     }
 }
