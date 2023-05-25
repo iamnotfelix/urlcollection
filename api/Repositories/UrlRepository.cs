@@ -31,10 +31,6 @@ namespace api.Repositories
                     {
                         var url = new Url
                         {
-                            // Id = reader.GetInt32("id"),
-                            // URL = reader.GetString("url"),
-                            // Description = reader.GetString("description"),
-                            // Category = reader.GetInt32("category"),
                             Id = reader.GetInt32(0),
                             URL = reader.GetString(1),
                             Description = reader.GetString(2),
@@ -47,6 +43,34 @@ namespace api.Repositories
             }
 
             return urls;
+        }
+
+        public async Task<Url> GetUrlById(int urlId)
+        {
+            await this.connection.OpenAsync();
+
+            using (var command = this.connection.CreateCommand())
+            {
+                command.CommandText = @"select * from urls where id = @Id;";
+                command.Parameters.AddWithValue("@Id", urlId);
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (reader.Read())
+                    {
+                        var url = new Url
+                        {
+                            Id = reader.GetInt32(0),
+                            URL = reader.GetString(1),
+                            Description = reader.GetString(2),
+                            Category = reader.GetInt32(3),
+                            User = reader.GetInt32(4)
+                        };
+                        return url;
+                    }
+                }
+            }
+            throw new Exception("Url not found!");
         }
     }
 }

@@ -16,5 +16,10 @@ namespace api.Services
         {
             return await this.repository.GetUrls(userId, pageSize, pageNumber);
         }
+
+        public async Task<Url> GetUrlById(int urlId)
+        {
+            return await this.repository.GetUrlById(urlId);
+        }
     }
 }
