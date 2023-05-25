@@ -29,5 +29,12 @@ namespace api.Services
 
             await this.repository.AddUrl(url.URL, url.Description, url.Category, userId);
         }
+
+        public async Task UpdateUrl(UpdateUrlDto url)
+        {
+            url.Validate();
+
+            await this.repository.UpdateUrl(url.Id, url.URL, url.Description);
+        }
     }
 }

@@ -99,5 +99,22 @@ namespace api.Repositories
 
             this.connection.Close();
         }
+
+        public async Task UpdateUrl(int id, string URL, string description)
+        {
+            await this.connection.OpenAsync();
+
+            using (var command = this.connection.CreateCommand())
+            {
+                command.CommandText = @"update urls set url = @Url, description = @Description where id = @Id;";
+                command.Parameters.AddWithValue("@Url", URL);
+                command.Parameters.AddWithValue("@Description", description);
+                command.Parameters.AddWithValue("@Id", id);
+
+                await command.ExecuteNonQueryAsync();
+            }
+
+            this.connection.Close();
+        }
     }
 }

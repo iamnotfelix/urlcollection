@@ -61,5 +61,20 @@ namespace api.Controllers
                 return NotFound(e.Message);
             }
         }
+        
+        // PUT /urls?userId=:userId
+        [HttpPut]
+        public async Task<ActionResult> UpdateUrlAsync(UpdateUrlDto url) 
+        {
+            try
+            {
+                await this.service.UpdateUrl(url);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+        }
     }
 }
