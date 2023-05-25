@@ -1,3 +1,4 @@
+using api.Dtos;
 using api.Models;
 using api.Repositories;
 
@@ -20,6 +21,13 @@ namespace api.Services
         public async Task<Url> GetUrlById(int urlId)
         {
             return await this.repository.GetUrlById(urlId);
+        }
+
+        public async Task AddUrl(AddUrlDto url, int userId)
+        {
+            url.Validate();
+
+            await this.repository.AddUrl(url.URL, url.Description, url.Category, userId);
         }
     }
 }

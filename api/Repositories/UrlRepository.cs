@@ -42,6 +42,8 @@ namespace api.Repositories
                 }
             }
 
+            this.connection.Close();
+
             return urls;
         }
 
@@ -66,11 +68,36 @@ namespace api.Repositories
                             Category = reader.GetInt32(3),
                             User = reader.GetInt32(4)
                         };
+
+                        this.connection.Close();
+                        
                         return url;
                     }
                 }
             }
+
+            this.connection.Close();
+
             throw new Exception("Url not found!");
+        }
+
+        public async Task AddUrl(string URL, string description, int category, int userId)
+        {
+            await this.connection.OpenAsync();
+
+            using (var command = this.connection.CreateCommand())
+            {
+                command.CommandText = 
+                    @"insert into urls (url, description, category, user) values (@Url, @Description, @Category, @User);";
+                command.Parameters.AddWithValue("@Url", URL);
+                command.Parameters.AddWithValue("@Description", description);
+                command.Parameters.AddWithValue("@Category", category);
+                command.Parameters.AddWithValue("@User", userId);
+
+                await command.ExecuteNonQueryAsync();
+            }
+
+            this.connection.Close();
         }
     }
 }

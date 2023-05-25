@@ -1,3 +1,4 @@
+using api.Dtos;
 using api.Models;
 using api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +40,21 @@ namespace api.Controllers
             {
                 var url = await this.service.GetUrlById(urlId);
                 return Ok(url);
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+        
+        // POST /urls?userId=:userId
+        [HttpPost]
+        public async Task<ActionResult> AddUrlAsync(AddUrlDto url, [FromQuery] int userId) 
+        {
+            try
+            {
+                await this.service.AddUrl(url, userId);
+                return Ok();
             }
             catch (Exception e)
             {
