@@ -1,9 +1,26 @@
+using api.Repositories;
+using api.Services;
+using MySqlConnector;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+var connectionStringBuilder = new MySqlConnectionStringBuilder
+{
+	Server = "localhost",
+	UserID = "root",
+	Password = "rootroot",
+	Database = "urlcollection"
+};
+
+builder.Services.AddScoped<MySqlConnection>(o => new MySqlConnection(connectionStringBuilder.ConnectionString));
+
+builder.Services.AddScoped<IUrlRepository, UrlRepository>();
+builder.Services.AddScoped<IUrlService, UrlService>();
+
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
