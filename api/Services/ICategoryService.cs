@@ -1,8 +1,8 @@
 using api.Models;
 
-namespace api.Repositories
+namespace api.Services
 {
-    public interface ICategoryRepository
+    public interface ICategoryService
     {
         Task<List<Category>> GetCategories();
     }
