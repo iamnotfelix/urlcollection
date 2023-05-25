@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { LoginUser } from 'src/models/LoginUser';
 import { User } from 'src/models/User';
 
@@ -9,12 +9,12 @@ import { User } from 'src/models/User';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:8000/urlcollection/server';
+  private baseUrl = 'http://localhost:5285/api';
 
   constructor(private http: HttpClient, private router: Router) {}
 
   login(loginUser: LoginUser): Observable<User> {
-      return this.http.post(`${this.baseUrl}/login.php`, loginUser) as Observable<User>;
+      return this.http.post(`${this.baseUrl}/users`, loginUser) as Observable<User>;
   }
 
   logout() {
