@@ -47,6 +47,21 @@ namespace api.Controllers
             }
         }
         
+        // GET /urls/:categoryId?
+        [HttpGet("category")]
+        public async Task<ActionResult<IEnumerable<Url>>> GetUrlByCategoryAsync([FromQuery] int categoryId, [FromQuery] int userId, [FromQuery] int pageSize, [FromQuery] int page) 
+        {
+            try
+            {
+                var urls = await this.service.GetUrlByCategory(categoryId, userId, pageSize, page);
+                return Ok(urls);
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+        
         // POST /urls?userId=:userId
         [HttpPost]
         public async Task<ActionResult> AddUrlAsync(AddUrlDto url, [FromQuery] int userId) 

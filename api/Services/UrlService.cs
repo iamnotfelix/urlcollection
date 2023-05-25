@@ -23,6 +23,11 @@ namespace api.Services
             return await this.repository.GetUrlById(urlId);
         }
 
+        public async Task<List<Url>> GetUrlByCategory(int categoryId, int userId, int pageSize, int pageNumber)
+        {
+            return await this.repository.GetUrlByCategory(categoryId, userId, pageSize, pageNumber);
+        }
+
         public async Task AddUrl(AddUrlDto url, int userId)
         {
             url.Validate();

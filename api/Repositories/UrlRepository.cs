@@ -81,6 +81,42 @@ namespace api.Repositories
             throw new Exception("Url not found!");
         }
 
+        public async Task<List<Url>> GetUrlByCategory(int categoryId, int userId, int pageSize, int pageNumber)
+        {
+            List<Url> urls = new List<Url>();
+
+            await this.connection.OpenAsync();
+
+            using (var command = this.connection.CreateCommand())
+            {
+                command.CommandText = @"select * from urls where category = @CategoryId and user = @UserId limit @From, @PageSize;";
+                command.Parameters.AddWithValue("@CategoryId", categoryId);
+                command.Parameters.AddWithValue("@UserId", userId);
+                command.Parameters.AddWithValue("@From", (pageNumber - 1) * pageSize);
+                command.Parameters.AddWithValue("@PageSize", pageSize);
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (reader.Read())
+                    {
+                        var url = new Url
+                        {
+                            Id = reader.GetInt32(0),
+                            URL = reader.GetString(1),
+                            Description = reader.GetString(2),
+                            Category = reader.GetInt32(3),
+                            User = reader.GetInt32(4)
+                        };
+                        urls.Add(url);
+                    }
+                }
+            }
+
+            this.connection.Close();
+
+            return urls;
+        }
+
         public async Task AddUrl(string URL, string description, int category, int userId)
         {
             await this.connection.OpenAsync();
