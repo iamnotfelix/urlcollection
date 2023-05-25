@@ -13,9 +13,19 @@ namespace api.Services
             this.repository = repository;
         }
 
-        public async Task<List<Url>> GetUrls(int userId, int pageSize, int pageNumber)
+        public async Task<PagedUrlDto> GetUrls(int userId, int pageSize, int pageNumber)
         {
-            return await this.repository.GetUrls(userId, pageSize, pageNumber);
+            var urls = await this.repository.GetUrls(userId, pageSize, pageNumber);
+            var totalUrls = await this.repository.GetUrlCount(userId);
+            double totalPages = (double) totalUrls / (double) pageSize;
+
+            var pagedUrls = new PagedUrlDto
+            {
+                TotalPages = (int)Math.Ceiling(totalPages),
+                Urls = urls
+            };
+
+            return pagedUrls;
         }
 
         public async Task<Url> GetUrlById(int urlId)
@@ -23,9 +33,19 @@ namespace api.Services
             return await this.repository.GetUrlById(urlId);
         }
 
-        public async Task<List<Url>> GetUrlByCategory(int categoryId, int userId, int pageSize, int pageNumber)
+        public async Task<PagedUrlDto> GetUrlByCategory(int categoryId, int userId, int pageSize, int pageNumber)
         {
-            return await this.repository.GetUrlByCategory(categoryId, userId, pageSize, pageNumber);
+            var urls = await this.repository.GetUrlByCategory(categoryId, userId, pageSize, pageNumber);
+            var totalUrls = await this.repository.GetUrlCountByCategory(userId, categoryId);
+            double totalPages = (double) totalUrls / (double) pageSize;
+
+            var pagedUrls = new PagedUrlDto
+            {
+                TotalPages = (int)Math.Ceiling(totalPages),
+                Urls = urls
+            };
+
+            return pagedUrls;
         }
 
         public async Task AddUrl(AddUrlDto url, int userId)

@@ -117,6 +117,57 @@ namespace api.Repositories
             return urls;
         }
 
+        public async Task<int> GetUrlCount(int userId)
+        {
+
+            await this.connection.OpenAsync();
+
+            using (var command = this.connection.CreateCommand())
+            {
+                command.CommandText = @"select count(*) from urls where user = @UserId";
+                command.Parameters.AddWithValue("@UserId", userId);
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (reader.Read())
+                    {
+                        int count = reader.GetInt32(0);
+                        return count;
+                    }
+                }
+            }
+
+            this.connection.Close();
+
+            throw new Exception("Urls not found.");
+        }
+       
+        public async Task<int> GetUrlCountByCategory(int userId, int categoryId)
+        {
+
+            await this.connection.OpenAsync();
+
+            using (var command = this.connection.CreateCommand())
+            {
+                command.CommandText = @"select count(*) from urls where category = @CategoryId and user = @UserId";
+                command.Parameters.AddWithValue("@UserId", userId);
+                command.Parameters.AddWithValue("@CategoryId", categoryId);
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (reader.Read())
+                    {
+                        int count = reader.GetInt32(0);
+                        return count;
+                    }
+                }
+            }
+
+            this.connection.Close();
+
+            throw new Exception("Urls not found.");
+        }
+
         public async Task AddUrl(string URL, string description, int category, int userId)
         {
             await this.connection.OpenAsync();
