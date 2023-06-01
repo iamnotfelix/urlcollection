@@ -18,7 +18,7 @@ namespace api.Controllers
 
         // GET /users
         [HttpPost]
-        public async Task<ActionResult<User>> Login(LoginUserDto user) 
+        public async Task<ActionResult<LoginResponse>> Login(LoginUserDto user) 
         {
             try
             {

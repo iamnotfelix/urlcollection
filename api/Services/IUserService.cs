@@ -5,6 +5,6 @@ namespace api.Services
 {
     public interface IUserService
     {
-        Task<User> Login(LoginUserDto user);
+        Task<LoginResponse> Login(LoginUserDto user);
     }
 }
